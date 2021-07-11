@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <meta charset="utf-8">
+        <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <main>
+    <div class="box">
+        <div class="headline">
+            <h1>Embedded Reber Grammatik</h1>
+        </div>
+        <!-- oberes Feld -->
+        <div class="bild">
+            <img src="images/0.png" alt="image" id="graph">
+        </div>
+    
+        <!-- Unteres Feld -->
+        <div class="bodies-unten">
+            <!-- Beschreibungstext-->
+            <div class="beschreibung">
+                <p>Q={1,2,3,4,5,6,7,8,9,10,11,12,13}</p>
+                <p>&sum; = {B,T,P,S,X,V,E}</p>
+                <p>S = {S}</p>
+                <p>Qaccept = {7}</p>
+                <p>Γ = {_,B,T,P,S,X,V,E}
+            </div>
+            <div class="mid-box">
+                <div class="status">
+                <span id="statusText">System bereit</span>
+                </div>
+                <div class="controls">
+                    <div class="buttons">
+                        <button title="In der Sequenz einen Schritt vorwärts gehen" id="gen_but_corr" onclick="run()">Step</button>
+                        <button title="Setzt die Maschine in den Anfangszustand zurück" id="gen_but_corr" onclick="reset()">Reset</button>
+                        <button title="Zeigt die Dokumentation der Maschine an" id="gen_but_corr" onclick="document.location='Doku.html'">Hilfe</button>
+                    </div>
+                    <form class="form" onsubmit="return false" autocomplete="off">
+                        <button class='start' title="Automatische Wiedergabe starten/stoppen" id="start" onclick="runAuto()"><img src="images/play.png" id="startimg"></button>
+                        <input autocomplete="off" type="text|submit" id="input" name="feldname" value="Ausdruck hier eingeben"
+                        oninput="value = value.toUpperCase()"></input>
+
+                    </form>
+                    
+                    <div class="controls-unten">
+                            <div class="slidecontainer">
+                                <span id="speed">Geschwindigkeit:</span>
+                                <input type="range" min="1" max="10" value="5" class="slider" id="speed"
+                                    oninput="setSpeed(value)">
+                            </div>
+                        Ausdrücke automatisch erzeugen
+                        <button title="Einen gültigen Ausdruck für die Maschine erzeugen" id="gen_but_corr" onclick="displayRightWord()">Gültiger E-Reeber</button>
+                        <button title="Einen ungültigen Ausdruck für die Maschine erzeugen" id="gen_but_corr" onclick="displayWrongWord()">Ungültiger E-Reeber</button>
+                    </div>
+
+
+                </div>
+            </div>
+            <!-- Angewandte regeln -->
+            <div class="regelbox" id="regelbox">
+                <table>
+                <tr>
+                    <th>Q</th>
+                    <th>Γ</th>
+                    <th>Q</th>
+                    <th>Γ</th>
+                    <th>(L/R)</th>
+                </tr>
+                <tr>
+                    <td>S</td>
+                    <td>B</td>
+                    <td>1</td>
+                    <td>_</td>
+                    <td>R</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>T</td>
+                    <td>2</td>
+                    <td>T</td>
+                    <td>R</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>P</td>
+                    <td>2</td>
+                    <td>P</td>
+                    <td>R</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>B</td>
+                    <td>8</td>
+                    <td>_</td>
+                    <td>R</td>
+                </tr>
+                <tr>
+                    <td>8</td>
+                    <td>P</td>
+                    <td>9</td>
+                    <td>_</td>
+                    <td>R</td>
+                </tr>
+                <tr>
+                    <td>8</td>
+                    <td>T</td>
+                    <td>12</td>
+                    <td>_</td>
+                    <td>R</td>
+                </tr>
+                <tr>
+                    <td>9</td>
+                    <td>T</td>
+                    <td>9</td>
+                    <td>_</td>
+                    <td>R</td>
+                </tr>
+                <tr>
+                    <td>9</td>
+                    <td>V</td>
+                    <td>10</td>
+                    <td>_</td>
+                    <td>R</td>
+                </tr>
+                <tr>
+                    <td>10</td>
+                    <td>V</td>
+                    <td>11</td>
+                    <td>_</td>
+                    <td>R</td>
+                </tr>
+                <tr>
+                    <td>12</td>
+                    <td>S</td>
+                    <td>12</td>
+                    <td>_</td>
+                    <td>R</td>
+                </tr>
+                <tr>
+                    <td>12</td>
+                    <td>X</td>
+                    <td>13</td>
+                    <td>_</td>
+                    <td>R</td>
+                </tr>
+                <tr>
+                    <td>13</td>
+                    <td>S</td>
+                    <td>11</td>
+                    <td>_</td>
+                    <td>R</td>
+                </tr>
+                <tr>
+                    <td>13</td>
+                    <td>X</td>
+                    <td>9</td>
+                    <td>_</td>
+                    <td>R</td>
+                </tr>
+                <tr>
+                    <td>11</td>
+                    <td>E</td>
+                    <td>3</td>
+                    <td>_</td>
+                    <td>R</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>T</td>
+                    <td>4</td>
+                    <td>_</td>
+                    <td>L</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>P</td>
+                    <td>5</td>
+                    <td>_</td>
+                    <td>L</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>_</td>
+                    <td>4</td>
+                    <td>_</td>
+                    <td>L</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>T</td>
+                    <td>6</td>
+                    <td>_</td>
+                    <td>R</td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>_</td>
+                    <td>5</td>
+                    <td>_</td>
+                    <td>L</td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>P</td>
+                    <td>6</td>
+                    <td>_</td>
+                    <td>R</td>
+                </tr>
+                <tr>
+                    <td>6</td>
+                    <td>_</td>
+                    <td>6</td>
+                    <td>_</td>
+                    <td>R</td>
+                </tr>
+                <tr>
+                    <td>6</td>
+                    <td>E</td>
+                    <td>7</td>
+                    <td>_</td>
+                    <td>R</td>
+                </tr>
+                </table>    
+            </div>
+    </div>
+    </main>
+    <script src="tm.js"></script>
+  </body>
+</html>

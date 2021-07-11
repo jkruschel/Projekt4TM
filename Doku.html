@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+    <body>
+    
+    <a href="index.html">Zurück zur Maschine</a>
+
+    <div class="title">
+        <h1>Dokumentation - Embedded Reber Grammatik</h1>
+        <p>Dokumentation zur vierten Abgabeaufgabe.</p>
+    </div>
+    
+    <div class="technisch">
+        <h1>Technische Aspekte</h1>
+        
+        <div class="einleitung">
+            <h2>Begriffserklärung: Turing Maschine</h2>
+            <p>Eine Turing Maschine lässt sich durch die folgenden Elementen darstellen:</p>
+            <ul>
+            <li>Q</li>
+                <ul>
+                <li>Eine endliche Menge von Zuständen.</li>
+                </ul>
+            <li>&sum;</li>
+                <ul>
+                <li>Ein Alphabet von gültigen Eingabezeichen. Muss Teilmenge des Bandalphabets sein.</li>
+                </ul>
+            <li>Γ</li>
+                <ul>
+                <li>Das endliche Bandalphabet.</li>
+                </ul>
+            <li>S</li>
+                <ul>
+                <li>Der Startzustand.</li>
+                </ul>
+            <li>Qaccept</li>
+                <ul>
+                <li>Der Erfolgszustand.</li>
+                </ul>
+            <li>Qreject</li>
+                <ul>
+                <li>Der Zustand bei einem Fehlschlag. Wird bei dieser Maschine bei jedem nicht explizit definierten Übergang erreicht und ist zur Verbesserung der Übersichtlichkeit nicht extra definiert und eingezeichnet.</li>
+                </ul>
+            </ul>
+        </div>
+        
+        <div class="Frameworks und technische Besonderheiten">
+            <h2>Verwendete Frameworks</h2>
+            <p>Ich habe zur Lösung dieser Aufgabe keinerlei Frameworks verwendet, was auch Gleichzeitig eine der technischen Besonderheiten meiner Lösung darstellt. Sie stützt sich nur auf basis Javascript und erfordert keine weitergehenden Kenntnisse.</p>
+            
+            <p>Weiterhin bemerkenswert ist die Erstellung der zufälligen korrekten und inkorrekten Ausdrücke. Um dies zu realisieren, wurde eine Funktion geschrieben, die quasi alle Zustände durchläuft und in solchen mit mehreren Ausgängen eine Münze wirft um zu entscheiden. In Zuständen, die in sich selbst übergehen können, wurde ein loop definiert, der eine zufällige Anzahl an Wiederholungen realisiert.</p>
+            
+            <p>Die Umsetzung der graphischen Darstellung wurde nach einigen Versuchen mit entsprechenden Frameworks und libraries schließlich sehr primitiv umgesetzt, indem für alle Zustände ein anderes Bild geladen wird. Dies fällt beim Oberflächlichen betrachten nicht auf und da das System nicht dynamisch erweiterbar sein soll spielt die Inflexibilität dieser Lösung in diesem Fall keine Rolle.</p>
+            
+            <p>Die anwendung ist so programmiert, dass die automatische Ausführung und das manuelle durchsteppen zu jeder Zeit in beliebiger Kombination verwendet werden können.</p>
+            
+            <p>Die Maschine selbst wird durch eine einzige Funktion mit switch cases simuliert. Dieser Ansatz ist leicht zu verstehen, leicht umzusetzen und zu debuggen und nicht Fehleranfällig.</p>
+        </div>
+        
+        <div class="Frameworks und technische Besonderheiten">
+            <h2>Fachliche Umsetzung<h2>
+            
+            <h3>Erzeugung von zufälligen Ausdrücken und manuelle Eingabe</h3>
+            
+            <p>Die beiden Funktionen displayRightWord() und displayWrongWord() zeigen zufällig erzeugte Ausdrücke im Eingabefenster an. Dabei rufen beide Funktionen die Funktion generateRight() auf, welche mithilfe von verschachtelten Conditionals die Maschine durchläuft und einen gültigen Ausdruck erstellt. Dazu erzeugt die Funktion ein leeres Array und generiert einen Eintrag nach dem anderen, indem sie sich von später zu prüfendem Zustand zu Zustand bewegt. Sie merkt sich die 2. generierte Stelle in einer extra Variable und fügt an vorletzter Stelle einen identischen Eintrag ein. Das so erzeugte Array wird anschließend in einen String umgewandelt und im Inputfeld angezeigt.</p>
+            
+            <p>Soll ein falscher Ausdruck generiert werden, wird ebenfalls generateRight() verwendet, aber nach ihrem Aufruf durch displayWrongWord() wird im so erzeugten Array die vorletzte Stelle durch den falschen Buchstaben ersetzt. War es ein "T", wird stattdessen ein "P" geschrieben und umgekehrt. Anschließend wird das Array wie bei der Erzeugung eines korrekten Auzsdrucks in einen String umgewandelt und im Inputfenster angezeigt.</p>
+            
+            <p>Bei der Verwendung eines manuell eingegebenen Terms, wird einfach das Eingabefeld ausgelesen.</p>
+            
+            <h3>Simulation der Turing Maschine</h3>
+            
+            <p>Die Simulation wird angestoßen, indem entweder der Button "Start/Stop" oder "Step" gedrückt wird. "Start/Stop" ruft die Funktion runAuto() auf, die wenn gerade eine automatische Wiedergabe läuft die Abbruchbedingung einer rekursiven Funktion setzt. Diese Abbruchbedingung wird außer Kraft gesetzt und der rekursive Aufruf wird gestartet, wenn gerade keine automatische Wiedergabe läuft. In diesem Fall wird die Funktion autoStep() aufgerufen, die sich solange die Abbruchbedingung nicht gesetzt wurde mit vom Benutzer einstellbarer Geschwindigkeit selbst aufruft und dabei eine Iteration der Funktion run() aufruft.</p>
+            
+            <p>run() ist die Funktion, die auch jedes Mal aufgerufen wird, wenn auf den "Step" Button gedrückt wird. So kann auch während der automatischen Ausführung auf "Step" gedrückt werden und es funktioniert wie erwartet, ohne das dies einen Fehler hervorrufen würde. run() splittet zunächst beim ersten Aufruf den String im input Feld in ein Array, in dem jeder Buchstabe einen Eintrag hat. Dann wird bei jedem Aufruf einen Schritt  weiter durch dieses Array iteriert, wobei die Anzahl an Aufrufen in der Variable "stepCounter" festgehalten wird. Bei jeder Iteration wird einmal die Funktion runmachine() aufgerufen, die die eigentliche Turing Maschine simuliert. Diese gibt "true" zurück wenn der zu betrachtende Buchstabe durch die Maschine verarbeitet werden kann. In diesem Fall wird das Diagramm und die Statuszeile aktualisiert und der Stepcounter um 1 erhöht. Die Maschine ist damit bereit den nächsten Buchstaben zu verarbeiten. Kann der betrachtete Buchstabe nicht von der Maschine verarbeitet werden, wird "false" zurückgegeben. Die weitere Verarbeitung des Ausdrucks wird abgebrochen und das Bild und die Statuszeile werden aktualisiert.</p> 
+            
+            <p>Zur Simulation der Turing Maschine in der Funktion "runmachine()" wird der aktuelle Zustand in der Variable "state" verfolgt. "State" startet bei 0, was unserem Startzustand entspricht. Die Funktion besteht aus einem einzigen switch case mit 13 Cases, was den 13 möglichen Zuständen in unserem System entspricht. Die Funktion runMachine() erhält als Argumente den zu betrachtenden Buchstaben und dessen Position innerhalb des Gesamtausdrucks. Je nachdem in welchem "State" wir uns befinden (Also in welchem Zustand) wird nun ein anderer Case aufgerufen, der überprüft, ob der übergebene Buchstabe einen validen Übergang besitzt. Ist dies der Fall wird der Buchstabe im Gesamtausdruck geblanked und der State wird auf den Zustand gestellt, der durch den Übergang definiert ist.</p>
+            
+            <p>Ein Beispiel: State steht auf 0, unser Input Wort ist "BPBPVVEPE". Wir klicken auf Step. Das Wort wird in ein Array der Größe 9 aufgeteilt. Der stepCounter steht bei "0". run() übergibt nun also Stelle Array[0] und die Zahl 0 an runMachine(). runMachine() switch case prüft "state". Es steht bei 0, wir gehen also in case 0. Dort wird geprüft, ob der übergebene Buchstabe ein "B" ist (einzig valider input um Vom Start in Zustand 1 zu kommen). Dies ist hier der Fall. Das B wird geblanked, "state" wird auf 1 gesetzt (Dieser Übergang hat uns in Zustand 1 gebracht) und runMachine() gibt "true" zurück. run() weiß dadurch, dass die Prüfung erfolgreich war, aktualisiert die Informationen auf dem Bildschirm entsprechend und erhöht den stepCounter um 1. Beim nächsten Aufruf von Run würde nun also Array[1] betrachtet und, da "state" auf 1 steht, mit den Bedingungen für einen erfolgreichen Übergang aus Zustand 1 verglichen werden.</p>
+        </div>
+        
+    </div>
+    
+    </body>
+</html> 

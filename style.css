@@ -1,0 +1,124 @@
+nav{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.3s;
+    padding: 0px 100px;
+    z-index: 999;
+    background-color: rgb(255,255,255);
+}
+
+.headline{
+    text-align: center;
+}
+
+.status{
+    text-align: center;
+    font-size: 2.5em;
+    
+}
+
+.bild{
+    text-align: center;
+    border: rgb(0,0,0) solid 3px;
+}
+
+.beschreibung{
+     background-color: rgb(200, 200, 200);  
+     border: rgb(0,0,0) solid 1px;
+     padding: 5px;
+}
+
+.controls{
+    text-align: center;
+    grid-area: textbox;
+    width: 300px;
+    margin-top: 20px;
+    background-color: rgb(200, 200, 200);
+    border: rgb(0,0,0) solid 3px;
+    padding: 10px;
+    font-size: 1.1em;
+    letter-spacing: 1px;
+    line-height: 30px;
+    border-radius: 20px;
+    
+}
+
+.buttons{
+    display: flex;
+    align-items: center;
+    margin-left: 70px;
+    justify-content: space-evenly;
+}
+
+.controls-unten{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 60%;
+    margin-left: 95px;
+    margin-top: -10px;
+    margin-bottom: -5px;
+    font-size: 0.5em;
+}
+
+.slidecontainer{
+    margin-top: -10px;
+    margin-bottom: -20px;
+}
+
+.start{
+    border-radius: 50%;
+    border: rgb(0,0,0) solid 1px;
+}
+
+#start img{
+    display: block;
+    height: 50px;
+    width: 50px;
+}
+
+.form{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.bodies-unten{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-top: 10px;
+    
+    
+}
+
+.mid-box{
+    display: flex;
+    flex-direction: column;
+    height: 250px;
+    width: 1000px;
+    align-items: center;
+}
+
+.regelbox{
+    background-color: rgb(200, 200, 200);
+    min-width: 400px;
+    height: 250px;
+    overflow: scroll;
+    margin-left: -100px;
+}
+
+table{
+ width: 100%;   
+}
+
+table, th, td{
+    border: 1px solid black;
+    border-collapse: collapse;
+    text-align: center;
+}
